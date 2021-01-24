@@ -22,22 +22,27 @@ const listaDeTareas = document.querySelectorAll('.contenedor__tareas--lista');
 // ================================ nueva tarea
 const nuevaTarea = function (e) {
   const tareaTexto = entradaTarea.value;
-  html = `
-  <div class="tarea-bloque">
-    <span class="tarea-bloque__tarea">
-      <input type="checkbox" class="completar">
-      <span class="">${tareaTexto}</span>
-    </span>
-    <span class="tarea-bloque__botones">
-      <i class="fas fa-pen"></i>
-      <i class="fas fa-trash"></i>
-    </span>
-  </div>
-  `;
 
-  const bloqueNuevasTareas = incompletasDiv.querySelectorAll('div')[1];
-  bloqueNuevasTareas.insertAdjacentHTML('afterbegin', html);
-  entradaTarea.value = '';
+  if (!tareaTexto) {
+    alert('Porfavor inserta texto valido ;)');
+  } else {
+    html = `
+    <div class="tarea-bloque">
+      <span class="tarea-bloque__tarea">
+        <input type="checkbox" class="completar">
+        <span class="texto">${tareaTexto}</span>
+      </span>
+      <span class="tarea-bloque__botones">
+        <i class="fas fa-pen"></i>
+        <i class="fas fa-trash"></i>
+      </span>
+    </div>
+    `;
+
+    const bloqueNuevasTareas = incompletasDiv.querySelectorAll('div')[1];
+    bloqueNuevasTareas.insertAdjacentHTML('afterbegin', html);
+    entradaTarea.value = '';
+  }
 };
 // ================================ completar tarea
 const completarTarea = function (e) {
@@ -46,7 +51,7 @@ const completarTarea = function (e) {
   html = `
   <div class="tarea-bloque">
     <span class="tarea-bloque__tarea">
-      <span class="completada">${texto}a</span>
+      <span class="completada">${texto}</span>
     </span>
     <span class="tarea-bloque__botones">
       <i class="fas fa-trash"></i>
@@ -85,17 +90,23 @@ const borrarTodo = function () {
 
 // ================================ completar todo
 const completarTodo = function () {
+  // guardar html de tareas en constante
   const nuevoHTML = incompletasDiv.querySelectorAll('div')[1].innerHTML;
+  // borrar html de bloque antiguo
   incompletasDiv.querySelectorAll('div')[1].innerHTML = '';
-  completadasDiv.querySelectorAll('div')[1].innerHTML = nuevoHTML;
 
+  // añadir nuevo html a bloque de tareas completadas
+  const bloqueTareasCompletadas = completadasDiv.querySelectorAll('div')[1];
+  bloqueTareasCompletadas.insertAdjacentHTML('afterbegin', nuevoHTML);
+
+  // borrando ciertos elementos
   const tareas = [...completadasDiv.querySelectorAll('div')[1].children];
   tareas.forEach((el) => {
     el.querySelector('.completar').remove();
     el.querySelector('.fa-pen').remove();
-    el.classList.add('completada');
+    el.querySelector('.texto').classList.add('completada');
+    // el.classList.add('completada');
   });
-
   console.log('completando todo...');
 };
 

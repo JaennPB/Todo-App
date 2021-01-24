@@ -30,8 +30,8 @@ const nuevaTarea = function (e) {
       <span class="">${tareaTexto}</span>
     </span>
     <span class="tarea-bloque__botones">
-      <i class="fas fa-pen" id="editar"></i>
-      <i class="fas fa-trash" id="borrar"></i>
+      <i class="fas fa-pen"></i>
+      <i class="fas fa-trash"></i>
     </span>
   </div>
   `;
@@ -39,23 +39,10 @@ const nuevaTarea = function (e) {
   const bloqueNuevasTareas = incompletasDiv.querySelectorAll('div')[1];
   bloqueNuevasTareas.insertAdjacentHTML('afterbegin', html);
   entradaTarea.value = '';
-
-  // completar tarea
-  const checked = document.querySelector('#completar');
-  eventosDeBoton(checked, botonBorrar, botonEditar);
-  checked.addEventListener('change', completarTarea);
-
-  // borrar tarea
-  const botonBorrar = document.querySelector('#borrar');
-  botonBorrar.addEventListener('click', borrarTarea);
-
-  // editar tarea
-  const botonEditar = document.querySelector('#editar');
-  botonEditar.addEventListener('click', editarTarea);
 };
-
 // ================================ completar tarea
 const completarTarea = function (e) {
+  console.log(e.target);
   borrarTarea(e);
 
   const texto = e.target.nextElementSibling.textContent;
@@ -66,7 +53,7 @@ const completarTarea = function (e) {
       <span class="completada">${texto}</span>
     </span>
     <span class="tarea-bloque__botones">
-      <i class="fas fa-trash" id="borrar"></i>
+      <i class="fas fa-trash"></i>
     </span>
   </div>
   `;
@@ -75,15 +62,18 @@ const completarTarea = function (e) {
   bloqueTareasCompletadas.insertAdjacentHTML('afterbegin', html);
 };
 
-// ================================ borrar tarea
-const borrarTarea = function (e) {
-  const elemento = e.target.closest('.tarea-bloque');
-  elemento.remove();
-};
+// ================================ borrar o editar elemento
+const editarBorrar = function (e) {
+  console.log(e.target);
+  if (e.target.classList[1] === 'fa-trash') {
+    console.log('borrar');
+    const elemento = e.target.closest('.tarea-bloque');
+    elemento.remove();
+  }
 
-// ================================ editar tarea
-const editarTarea = function () {
-  console.log('editar');
+  if (e.target.classList[1] === 'fa-pen') {
+    console.log('editar');
+  }
 };
 
 // ================================ borrar todo
@@ -101,13 +91,17 @@ const completarTodo = function () {
 // ********************************************************************************
 //event listeners
 
-// ================================ crear nueva tarea (editar, borrar, completar)
+// ================================ crear nueva tarea
 botonNuevaTarea.addEventListener('click', nuevaTarea);
+
+// ================================ completar tarea
+listaDeTareas.forEach((el) => el.addEventListener('change', completarTarea));
+
+// ================================ editar, borrar tarea
+listaDeTareas.forEach((el) => el.addEventListener('click', editarBorrar));
 
 // ================================ borrar todo
 botonBorrarTodo.addEventListener('click', borrarTodo);
 
-// ARREGLAR EVENTLISTENERS DENTRO DE EVENTLISTENERS
-// COMPLETAR FUNCIONALIDAD DE BORRAR COMPLETADAS
-// COMPLETAR FUNCIONALIDAD DE BOTON 'COMPLETAR TODO'
-// AGREGAR ANIMACIONES
+// ================================ completar todo
+// botonBorrarTodo.addEventListener('click', completarTodo);

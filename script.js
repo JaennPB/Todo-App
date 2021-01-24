@@ -21,7 +21,6 @@ const listaDeTareas = document.querySelectorAll('.contenedor__tareas--lista');
 
 // ================================ nueva tarea
 const nuevaTarea = function (e) {
-  // crear tarea
   const tareaTexto = entradaTarea.value;
   html = `
   <div class="tarea-bloque">
@@ -42,14 +41,12 @@ const nuevaTarea = function (e) {
 };
 // ================================ completar tarea
 const completarTarea = function (e) {
-  console.log(e.target);
-
   const texto = e.target.nextElementSibling.textContent;
 
   html = `
   <div class="tarea-bloque">
     <span class="tarea-bloque__tarea">
-      <span class="completada">${texto}</span>
+      <span class="completada">${texto}a</span>
     </span>
     <span class="tarea-bloque__botones">
       <i class="fas fa-trash"></i>
@@ -62,18 +59,19 @@ const completarTarea = function (e) {
 
   const el = e.target.closest('.tarea-bloque');
   el.remove();
+  console.log('completando...');
 };
 
 // ================================ borrar o editar tarea
 const editarBorrar = function (e) {
   if (e.target.classList[1] === 'fa-trash') {
-    console.log('borrar');
+    console.log('borrando...');
     const elemento = e.target.closest('.tarea-bloque');
     elemento.remove();
   }
 
   if (e.target.classList[1] === 'fa-pen') {
-    console.log('editar');
+    console.log('editando...');
   }
 };
 
@@ -81,12 +79,24 @@ const editarBorrar = function (e) {
 const borrarTodo = function () {
   listaDeTareas.forEach((el) => {
     el.innerHTML = '';
+    console.log('borrando todo...');
   });
 };
 
 // ================================ completar todo
 const completarTodo = function () {
-  //
+  const nuevoHTML = incompletasDiv.querySelectorAll('div')[1].innerHTML;
+  incompletasDiv.querySelectorAll('div')[1].innerHTML = '';
+  completadasDiv.querySelectorAll('div')[1].innerHTML = nuevoHTML;
+
+  const tareas = [...completadasDiv.querySelectorAll('div')[1].children];
+  tareas.forEach((el) => {
+    el.querySelector('.completar').remove();
+    el.querySelector('.fa-pen').remove();
+    el.classList.add('completada');
+  });
+
+  console.log('completando todo...');
 };
 
 // ********************************************************************************
@@ -103,3 +113,6 @@ listaDeTareas.forEach((el) => el.addEventListener('click', editarBorrar));
 
 // ================================ borrar todo
 botonBorrarTodo.addEventListener('click', borrarTodo);
+
+// ================================ completar todo
+botonCompletarTodo.addEventListener('click', completarTodo);

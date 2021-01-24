@@ -26,7 +26,7 @@ const nuevaTarea = function (e) {
   html = `
   <div class="tarea-bloque">
     <span class="tarea-bloque__tarea">
-      <input type="checkbox" id="completar">
+      <input type="checkbox" class="completar">
       <span class="">${tareaTexto}</span>
     </span>
     <span class="tarea-bloque__botones">
@@ -43,7 +43,6 @@ const nuevaTarea = function (e) {
 // ================================ completar tarea
 const completarTarea = function (e) {
   console.log(e.target);
-  borrarTarea(e);
 
   const texto = e.target.nextElementSibling.textContent;
 
@@ -60,11 +59,13 @@ const completarTarea = function (e) {
 
   const bloqueTareasCompletadas = completadasDiv.querySelectorAll('div')[1];
   bloqueTareasCompletadas.insertAdjacentHTML('afterbegin', html);
+
+  const el = e.target.closest('.tarea-bloque');
+  el.remove();
 };
 
-// ================================ borrar o editar elemento
+// ================================ borrar o editar tarea
 const editarBorrar = function (e) {
-  console.log(e.target);
   if (e.target.classList[1] === 'fa-trash') {
     console.log('borrar');
     const elemento = e.target.closest('.tarea-bloque');
@@ -102,6 +103,3 @@ listaDeTareas.forEach((el) => el.addEventListener('click', editarBorrar));
 
 // ================================ borrar todo
 botonBorrarTodo.addEventListener('click', borrarTodo);
-
-// ================================ completar todo
-// botonBorrarTodo.addEventListener('click', completarTodo);

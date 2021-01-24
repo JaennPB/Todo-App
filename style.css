@@ -1,0 +1,176 @@
+*,
+*::after,
+*::before {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: inherit;
+}
+
+html {
+  font-size: 62.5%;
+  box-sizing: border-box;
+  font-family: "poppins", sans-serif;
+  height: 100%;
+}
+
+body {
+  height: 100vh;
+  width: 100vw;
+  background-image: linear-gradient(to bottom right, #21a964, #2dd881);
+  position: absolute;
+}
+
+.contenedor {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  height: max-content;
+  width: 40%;
+  background-color: #ffffff;
+  box-shadow: 3px 3px 9px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  border-radius: 1.5rem;
+
+  display: grid;
+  grid-template-rows: repeat(2, max-content) 50rem max-content;
+  grid-template-columns: repeat(2, 1fr);
+  justify-items: center;
+}
+
+.contenedor__titulo {
+  grid-row: 1 / 2;
+  grid-column: 1 / -1;
+
+  background-color: #2dd881;
+  width: 100%;
+  text-align: center;
+  padding: 1.5rem 2rem 0 2rem;
+  color: #fff;
+  font-weight: 400;
+  font-size: 2.6rem;
+  letter-spacing: 0.3rem;
+}
+
+.contenedor__entrada {
+  grid-row: 2 / 3;
+  grid-column: 1 / -1;
+  background-color: #2dd881;
+  width: 100%;
+  text-align: center;
+  padding: 1.5rem 2rem;
+
+  display: flex;
+  justify-content: space-between;
+}
+
+.contenedor__entrada--entrada {
+  padding: 0.6rem 1.3rem;
+  outline: none;
+  border: none;
+  border-radius: 0.6rem;
+  width: 45%;
+  font-family: inherit;
+  font-size: 1.3rem;
+}
+
+.contenedor__tareas--titulo {
+  font-weight: 400;
+  font-size: 1.6rem;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 0.6rem;
+  margin: 0 auto;
+  width: 80%;
+  text-align: center;
+}
+
+.contenedor__tareas {
+  grid-row: 3 / 4;
+  grid-column: 1 / -1;
+  width: 100%;
+  padding: 1.5rem 2rem;
+
+  display: flex;
+
+  overflow-y: scroll;
+}
+
+.contenedor__tareas--incompletas {
+  width: 95%;
+}
+
+.contenedor__tareas--completas {
+  width: 95%;
+}
+
+.contenedor__botones {
+  grid-row: 4 / 5;
+  grid-column: 1 / -1;
+
+  background-color: #2dd881;
+  width: 100%;
+  padding: 1.5rem 2rem;
+
+  display: flex;
+  justify-content: space-between;
+}
+
+button {
+  padding: 0.6rem 1.3rem;
+  outline: none;
+  border: none;
+  border-radius: 0.6rem;
+  background-color: #3590f3;
+  font-family: inherit;
+  color: #fff;
+  width: 45%;
+  font-size: 1.3rem;
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  background-color: #2d81db;
+}
+
+/* -------------------------------------- tareas */
+
+/* incompleta */
+.tarea-bloque {
+  width: 95%;
+  margin: 0 auto;
+  padding: 1.5rem;
+  font-size: 1.3rem;
+  border-bottom: 1px solid #ccc;
+
+  display: flex;
+  justify-content: space-between;
+}
+
+.tarea-bloque__tarea {
+  display: flex;
+  align-items: center;
+}
+
+.tarea-bloque__tarea > input {
+  margin-right: 0.6rem;
+}
+
+.tarea-bloque__botones {
+  font-size: 1.3rem;
+  color: #3590f3;
+}
+
+.tarea-bloque__botones > i:hover {
+  color: #eb4820;
+}
+
+.tarea-bloque__botones > i:last-child {
+  margin-left: 1rem;
+}
+
+/* completada */
+.completada {
+  opacity: 0.5;
+  text-decoration: line-through;
+}

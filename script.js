@@ -121,7 +121,7 @@ const completarTodo = function () {
 botonNuevaTarea.addEventListener('click', nuevaTarea);
 
 // ================================ completar tarea
-listaDeTareas.forEach((el) => el.addEventListener('change', completarTarea));
+listaDeTareas[0].addEventListener('change', completarTarea);
 
 // ================================ editar, borrar tarea
 listaDeTareas.forEach((el) => el.addEventListener('click', editarBorrar));

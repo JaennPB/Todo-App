@@ -92,6 +92,10 @@ const borrarTodo = function () {
 const completarTodo = function () {
   // guardar html de tareas en constante
   const nuevoHTML = incompletasDiv.querySelectorAll('div')[1].innerHTML;
+
+  // guard clause
+  if (!nuevoHTML) return;
+
   // borrar html de bloque antiguo
   incompletasDiv.querySelectorAll('div')[1].innerHTML = '';
 
@@ -106,8 +110,8 @@ const completarTodo = function () {
     el.querySelector('.fa-pen').remove();
     el.querySelector('.texto').classList.add('completada');
     // el.classList.add('completada');
+    console.log('completando todo...');
   });
-  console.log('completando todo...');
 };
 
 // ********************************************************************************

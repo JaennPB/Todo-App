@@ -64,13 +64,11 @@ const completarTarea = function (e) {
 
   const el = e.target.closest('.tarea-bloque');
   el.remove();
-  console.log('completando...');
 };
 
 // ================================ borrar o editar tarea
 const editarBorrar = function (e) {
   if (e.target.classList[1] === 'fa-trash') {
-    console.log('borrando...');
     const elemento = e.target.closest('.tarea-bloque');
     elemento.remove();
   }
@@ -84,7 +82,6 @@ const editarBorrar = function (e) {
 const borrarTodo = function () {
   listaDeTareas.forEach((el) => {
     el.innerHTML = '';
-    console.log('borrando todo...');
   });
 };
 
@@ -139,6 +136,5 @@ botonBorrarTodo.addEventListener('click', borrarTodo);
 // ================================ completar todo
 botonCompletarTodo.addEventListener('click', completarTodo);
 
-// checar error cuando completando todo
 // añadir funcionalidad de edicion
 // añadir funcionalidad de local storage

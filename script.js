@@ -65,7 +65,7 @@ const completarTarea = function (e) {
   el.remove();
 };
 
-// ================================ borrar o editar tarea
+// ================================ borrar tarea
 const borrar = function (e) {
   if (e.target.classList[1] === 'fa-trash') {
     const elemento = e.target.closest('.tarea-bloque');
@@ -76,7 +76,10 @@ const borrar = function (e) {
 // ================================ borrar todo
 const borrarTodo = function () {
   listaDeTareas.forEach((el) => {
-    el.innerHTML = '';
+    const elementos = [...el.children];
+    elementos.forEach((el) => {
+      el.remove();
+    });
   });
 };
 

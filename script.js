@@ -33,7 +33,6 @@ const nuevaTarea = function (e) {
         <span class="texto">${tareaTexto}</span>
       </span>
       <span class="tarea-bloque__botones">
-        <i class="fas fa-pen"></i>
         <i class="fas fa-trash"></i>
       </span>
     </div>
@@ -67,14 +66,10 @@ const completarTarea = function (e) {
 };
 
 // ================================ borrar o editar tarea
-const editarBorrar = function (e) {
+const borrar = function (e) {
   if (e.target.classList[1] === 'fa-trash') {
     const elemento = e.target.closest('.tarea-bloque');
     elemento.remove();
-  }
-
-  if (e.target.classList[1] === 'fa-pen') {
-    console.log('editando...');
   }
 };
 
@@ -106,7 +101,6 @@ const completarTodo = function () {
   nuevoDOM.forEach((el) => {
     // por cada dom virtual de elemento, quitar ciertos elementos
     el.querySelector('.completar').remove();
-    el.querySelector('.fa-pen').remove();
     el.querySelector('.texto').classList.add('completada');
 
     // convietiendo de vuelta a una string
@@ -118,6 +112,30 @@ const completarTodo = function () {
   });
 };
 
+// ================================ localStorage API
+
+const guardarDatos = function () {
+  if (listaDeTareas[0].innerHTML === '' && listaDeTareas[1].innerHTML === '')
+    return;
+
+  const tareasPorHacer = listaDeTareas[0].innerHTML;
+  const tareasCompletas = listaDeTareas[1].innerHTML;
+  localStorage.setItem('tareasPorHacer', tareasPorHacer);
+  localStorage.setItem('tareasCompletas', tareasCompletas);
+};
+
+const conseguirDatos = function () {
+  if (listaDeTareas[0].innerHTML === '' && listaDeTareas[1].innerHTML === '')
+    return;
+
+  const data0 = localStorage.getItem('tareasPorHacer');
+  const data1 = localStorage.getItem('tareasCompletas');
+  listaDeTareas[0].insertAdjacentHTML('afterbegin', data0);
+  listaDeTareas[1].insertAdjacentHTML('afterbegin', data1);
+};
+
+// cuando boton borrar, borrar datos
+
 // ********************************************************************************
 //event listeners
 
@@ -128,7 +146,7 @@ botonNuevaTarea.addEventListener('click', nuevaTarea);
 listaDeTareas[0].addEventListener('change', completarTarea);
 
 // ================================ editar, borrar tarea
-listaDeTareas.forEach((el) => el.addEventListener('click', editarBorrar));
+listaDeTareas.forEach((el) => el.addEventListener('click', borrar));
 
 // ================================ borrar todo
 botonBorrarTodo.addEventListener('click', borrarTodo);
@@ -136,5 +154,6 @@ botonBorrarTodo.addEventListener('click', borrarTodo);
 // ================================ completar todo
 botonCompletarTodo.addEventListener('click', completarTodo);
 
-// añadir funcionalidad de edicion
-// añadir funcionalidad de local storage
+// ================================ guardar datos
+window.addEventListener('beforeunload', guardarDatos);
+window.addEventListener('load', conseguirDatos);

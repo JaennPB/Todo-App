@@ -91,26 +91,33 @@ const borrarTodo = function () {
 // ================================ completar todo
 const completarTodo = function () {
   // guardar html de tareas en constante
-  const nuevoHTML = incompletasDiv.querySelectorAll('div')[1].innerHTML;
+  const cadenaHTML = incompletasDiv.querySelectorAll('div')[1].innerHTML;
 
   // guard clause
-  if (!nuevoHTML) return;
+  if (!cadenaHTML) return;
 
-  // borrar html de bloque antiguo
+  // borrar html del bloque de tareas incompletas
   incompletasDiv.querySelectorAll('div')[1].innerHTML = '';
 
-  // añadir nuevo html a bloque de tareas completadas
-  const bloqueTareasCompletadas = completadasDiv.querySelectorAll('div')[1];
-  bloqueTareasCompletadas.insertAdjacentHTML('afterbegin', nuevoHTML);
+  // creando nuevo elemento DOM de cadena de HTML
+  const domVirtual = document
+    .createRange()
+    .createContextualFragment(cadenaHTML);
+  // guardando dom virtual en constant para poder hacer un loop
+  const nuevoDOM = [...domVirtual.children];
 
-  // borrando ciertos elementos
-  const tareas = [...completadasDiv.querySelectorAll('div')[1].children];
-  tareas.forEach((el) => {
+  nuevoDOM.forEach((el) => {
+    // por cada dom virtual de elemento, quitar ciertos elementos
     el.querySelector('.completar').remove();
     el.querySelector('.fa-pen').remove();
     el.querySelector('.texto').classList.add('completada');
-    // el.classList.add('completada');
-    console.log('completando todo...');
+
+    // convietiendo de vuelta a una string
+    const nuevo = el.outerHTML;
+
+    // añadiendo nueva string a tareas completas
+    const bloqueTareasCompletadas = completadasDiv.querySelectorAll('div')[1];
+    bloqueTareasCompletadas.insertAdjacentHTML('afterbegin', nuevo);
   });
 };
 
@@ -131,3 +138,7 @@ botonBorrarTodo.addEventListener('click', borrarTodo);
 
 // ================================ completar todo
 botonCompletarTodo.addEventListener('click', completarTodo);
+
+// checar error cuando completando todo
+// añadir funcionalidad de edicion
+// añadir funcionalidad de local storage
